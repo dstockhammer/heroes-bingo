@@ -2,6 +2,8 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 13px;
     background: #ffffff;
+    margin: 0;
+    padding: 0 0 50px 0;
 }
 
 *, *:before, *:after {
@@ -14,6 +16,13 @@ body {
     text-align: center;
     margin: 0px auto;
     padding: 20px 0 0 0;
+}
+
+.instructions {
+    width: 590px;
+    margin: 0px auto;
+    padding-top: 40px;
+    font-size: 14px;
 }
 
 .bingo-board {
@@ -115,6 +124,7 @@ body {
     width: 100%;
     border-bottom: 1px dashed #333333;
     margin-bottom: 40px;
+    min-width: 590px;
 }
 
 @media only print

@@ -29,6 +29,8 @@ function insertBingoBoard(templatePhrases) {
         }
     }
 
+    insertFooter();
+
     let $pageBreak = $("<div/>", { "class": "page-break" });
     $("body").append($pageBreak);
 }
@@ -41,10 +43,17 @@ function insertLogo() {
     $logo.appendTo($container);
 }
 
+function insertFooter() {
+    let instructions = "While you watch the Heroes of the Storm, mark each hex as a caster says the indicated phrase. Be the first player to mark five hexes in a row (horizontal, vertical, or diagonal) and shout “<strong>BINGO</strong>” to win!";
+    $("body").append(`<div class="instructions">${instructions}</div>`);
+}
+
 $(document).ready(() => {
     $.getJSON("phrases.json", phrases => {
         insertBingoBoard(phrases);
         insertBingoBoard(phrases);
         insertBingoBoard(phrases);
+
+        $('.page-break:last').remove();
     });
 });
