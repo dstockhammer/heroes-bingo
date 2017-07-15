@@ -137,4 +137,8 @@ body {
         border: none;
         page-break-before: always;
     }
+
+    .github-corner {
+        display: none;
+    }
 }
