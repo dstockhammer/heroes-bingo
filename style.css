@@ -1,0 +1,130 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    background: #ffffff;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+.logo-container {
+    width: 590px;
+    height: 100px;
+    text-align: center;
+    margin: 0px auto;
+    padding: 20px 0 0 0;
+}
+
+.bingo-board {
+    margin: 0px auto;
+    padding: 20px 0 0 0;
+    height: 505px;
+    width: 590px;
+}
+
+.bingo-row {
+    margin: 0;
+    padding: 0;
+}
+
+.bingo-row > li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 0 5px 0 100px;
+}
+
+.bingo-board ul {
+    padding: 72px 0 0 0;
+}
+
+.bingo-board ul:nth-child(odd) {
+    padding-left: 52px;
+}
+
+.bingo-board ul:first-child {
+    padding-top: 0;
+}
+
+.bingo-board ul > li:first-child {
+    padding-left: 10px;
+}
+
+.hexagon {
+    position: relative;
+    width: 100px;
+    height: 57.74px;
+    margin: 28.87px 0;
+    background: #ffffff;
+    border-left: solid 5px #333333;
+    border-right: solid 5px #333333;
+    top: -60px;
+}
+
+.hexagon:before,
+.hexagon:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 70.71px;
+    height: 70.71px;
+    -webkit-transform: scaleY(0.5774) rotate(-45deg);
+    -ms-transform: scaleY(0.5774) rotate(-45deg);
+    transform: scaleY(0.5774) rotate(-45deg);
+    background-color: inherit;
+    left: 9.6447px;
+}
+
+.hexagon:before {
+    top: -35.3553px;
+    border-top: solid 7.0711px #333333;
+    border-right: solid 7.0711px #333333;
+}
+
+.hexagon:after {
+    bottom: -35.3553px;
+    border-bottom: solid 7.0711px #333333;
+    border-left: solid 7.0711px #333333;
+}
+
+.hexagon-container {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+
+.hexagon-text {
+    position: relative;
+    z-index: 999;
+    top: 25px;
+    left: 5px;
+    width: 90px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.hexagon-text > span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+.page-break {
+    height: 80px;
+    width: 100%;
+    border-bottom: 1px dashed #333333;
+    margin-bottom: 40px;
+}
+
+@media only print
+{
+    .page-break {
+        display: block;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        border: none;
+        page-break-before: always;
+    }
+}
