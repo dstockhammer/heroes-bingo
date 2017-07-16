@@ -5,6 +5,22 @@ function shuffle(a) {
     }
 }
 
+function clearBoards() {
+    $("#bingo-boards").children().remove();
+}
+
+function insertBingoBoards(boardsCount, templatePhrases) {
+    // todo: random 25 els
+
+    clearBoards();
+
+    for (let i = 0; i < boardsCount; i++) {
+        insertBingoBoard(templatePhrases);
+    }
+
+    $('.page-break:last').remove();
+}
+
 function insertBingoBoard(templatePhrases) {
     let phrases = JSON.parse(JSON.stringify(templatePhrases));
     shuffle(phrases);
@@ -12,7 +28,7 @@ function insertBingoBoard(templatePhrases) {
     insertLogo();
 
     let $board = $("<div/>", { "class": "bingo-board" });
-    $("body").append($board);
+    $("#bingo-boards").append($board);
 
     let size = Math.floor(Math.sqrt(phrases.length));
 
@@ -32,28 +48,48 @@ function insertBingoBoard(templatePhrases) {
     insertFooter();
 
     let $pageBreak = $("<div/>", { "class": "page-break" });
-    $("body").append($pageBreak);
+    $("#bingo-boards").append($pageBreak);
 }
 
 function insertLogo() {
     let $container = $("<div/>", { "class": "logo-container" });
-    $("body").append($container);
+    $("#bingo-boards").append($container);
 
     let $logo = $("<img/>", { "src": "logo.png", "alt": "Heroes of the Storm" });
     $logo.appendTo($container);
 }
 
 function insertFooter() {
-    let instructions = "While you watch the Heroes of the Storm, mark each hex as a caster says the indicated phrase. Be the first player to mark five hexes in a row (horizontal, vertical, or diagonal) and shout “<strong>BINGO</strong>” to win!";
-    $("body").append(`<div class="instructions">${instructions}</div>`);
+    let instructions = "While you watch the <em>Heroes of the Storm</em>, mark each hex as a caster says the indicated phrase. Be the first player to mark five hexes in a row (horizontal, vertical, or diagonal) and shout “<strong>BINGO</strong>” to win!";
+    $("#bingo-boards").append(`<div class="instructions">${instructions}</div>`);
 }
 
 $(document).ready(() => {
-    $.getJSON("phrases.json", phrases => {
-        insertBingoBoard(phrases);
-        insertBingoBoard(phrases);
-        insertBingoBoard(phrases);
+    let boardsCount = 1;
+    let phrases = null;
+    let phraseSet = "default";
 
-        $('.page-break:last').remove();
+    $("h3").click(() => {
+        window.print();
+    });
+
+    $(document).on('input', '.boards-count input', () => {
+        boardsCount = $(".boards-count input").val();
+        $(".boards-count span").text(boardsCount);
+        insertBingoBoards(boardsCount, phrases);
+    });
+
+    $(document).on('input', '.phrase-set select', () => {
+        phraseSet = $(".phrase-set select").val();
+
+        $.getJSON(`phrases/${phraseSet}.json`, json => {
+            phrases = json;
+            insertBingoBoards(boardsCount, phrases);
+        });
+    });
+
+    $.getJSON(`phrases/${phraseSet}.json`, json => {
+        phrases = json;
+        insertBingoBoards(boardsCount, phrases);
     });
 });
