@@ -30,8 +30,11 @@ function insertBingoBoard(templatePhrases) {
     let $board = $("<div/>", { "class": "bingo-board" });
     $("#bingo-boards").append($board);
 
-    let size = Math.floor(Math.sqrt(phrases.length));
+    if (templatePhrases.length < 25) {
+        throw "json must contain at least 25 phrases";
+    }
 
+    let size = 5;
     for (let row = 0; row < size; row++) {
         let $row = $('<ul/>', { "class": 'bingo-row' });
         $row.appendTo($board);
@@ -67,11 +70,7 @@ function insertFooter() {
 $(document).ready(() => {
     let boardsCount = 1;
     let phrases = null;
-    let phraseSet = "default";
-
-    $("h3").click(() => {
-        window.print();
-    });
+    let phraseSet = null;
 
     $(document).on('input', '.boards-count input', () => {
         boardsCount = $(".boards-count input").val();
@@ -79,17 +78,16 @@ $(document).ready(() => {
         insertBingoBoards(boardsCount, phrases);
     });
 
-    $(document).on('input', '.phrase-set select', () => {
+    let render = () => {
         phraseSet = $(".phrase-set select").val();
 
         $.getJSON(`phrases/${phraseSet}.json`, json => {
             phrases = json;
             insertBingoBoards(boardsCount, phrases);
         });
-    });
+    }
 
-    $.getJSON(`phrases/${phraseSet}.json`, json => {
-        phrases = json;
-        insertBingoBoards(boardsCount, phrases);
-    });
+    $(document).on('input', '.phrase-set select', () => render());
+
+    render();
 });
