@@ -26,6 +26,11 @@
         <li>Adjust number of boards to match players.</li>
         <li>Print this page. It will automatically be converted to the printer friendly version.</li>
       </ol>
+
+      <div class="buttons">
+        <button class="btn" type="button" @click="shuffle"><span>Shuffle</span></button>
+        <button class="btn" type="button" @click="print"><span>Print</span></button>
+      </div>
     </div>
   </div>
 </template>
@@ -51,6 +56,12 @@ export default {
           this.phrases.current = json;
           this.phrases.boards = {};
         });
+    },
+    shuffle() {
+      this.phrases.boards = {};
+    },
+    print() {
+      window.print();
     },
   },
   created() {
@@ -106,6 +117,53 @@ dd {
   width: 390px;
   padding: 0 0 10px 0;
   margin: 0;
+}
+
+/* buttons */
+.buttons {
+  text-align: center;
+}
+
+.btn {
+  overflow: hidden;
+  border-width: 0;
+  outline: none;
+  margin: 5px;
+  border-radius: 4px;
+  background-color: #bbb;
+  color: #ecf0f1;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+  cursor: pointer;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #aaa;
+}
+
+.btn > * {
+  position: relative;
+}
+
+.btn span {
+  display: block;
+  padding: 12px 24px;
+}
+
+.btn.orange {
+  background-color: #e67e22;
+}
+
+.btn.orange:hover, .btn.orange:focus {
+  background-color: #d35400;
+}
+
+.btn.red {
+  background-color: #e74c3c;
+}
+
+.btn.red:hover, .btn.red:focus {
+  background-color: #c0392b;
 }
 
 @media only print

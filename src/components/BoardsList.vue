@@ -111,6 +111,7 @@ export default {
   padding-left: 10px;
 }
 
+/* hexagons */
 .hexagon {
   position: relative;
   width: 100px;
